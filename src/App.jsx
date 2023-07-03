@@ -1,12 +1,13 @@
 import '@/assets/styles/global.scss';
 import { Header } from '@/layout/Header/Header';
 import { Footer } from '@/layout/Footer/Footer';
-import { SignUp } from '@/pages/SignUp.jsx';
+import { Register } from '@/pages/Register.jsx';
 import { AuthContextProvider } from '@/context/AuthContext.jsx';
-import { SignIn } from '@/pages/SignIn.jsx';
+import { Login } from '@/pages/Login.jsx';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { Account } from '@/pages/Account.jsx';
-import { ProtectedRoutes } from '@/components/ProtectedRoutes/ProtectedRoutes.jsx';
+import { Dashboard } from '@/pages/Dashboard.jsx';
+import { ProtectedRoutes } from '@/services/ProtectedRoutes/ProtectedRoutes.jsx';
+import { routes } from '@/services/routes.jsx';
 
 export const App = () => {
     return (
@@ -15,12 +16,13 @@ export const App = () => {
             <main>
                 <AuthContextProvider>
                     <Routes>
-                        <Route path="/signin" element={<SignIn />} />
-                        <Route path="/signup" element={<SignUp />} />
-                        <Route path="/*" element={<Navigate to="/" />} />
+                        {/* Public routes */}
+                        <Route path={routes.login} element={<Login />} />
+                        <Route path={routes.register} element={<Register />} />
+                        <Route path={routes.all} element={<Navigate to="/" />} />
+                        {/* Protected routes */}
                         <Route element={<ProtectedRoutes />}>
-                            <Route path="/" element={<Navigate to="/account" />} />
-                            <Route path="/account" element={<Account />} />
+                            <Route path={routes.default} element={<Dashboard />} />
                         </Route>
                     </Routes>
                 </AuthContextProvider>
