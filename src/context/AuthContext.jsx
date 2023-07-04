@@ -19,19 +19,17 @@ export const AuthContextProvider = ({ children }) => {
             setCurrentUser(user);
         });
 
-        return () => {
-            unsubscribe();
-        };
+        return () => unsubscribe();
     }, [currentUser]);
 
-    const value = {
+    const values = {
         currentUser,
         signIn,
         createUser,
         logout,
     };
 
-    return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+    return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 };
 
 AuthContextProvider.propTypes = {
