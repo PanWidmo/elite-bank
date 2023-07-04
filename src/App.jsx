@@ -19,10 +19,11 @@ export const App = () => {
                         {/* Public routes */}
                         <Route path={routes.login} element={<Login />} />
                         <Route path={routes.register} element={<Register />} />
-                        <Route path={routes.all} element={<Navigate to="/" />} />
+                        <Route path={routes.all} element={<Navigate to={routes.default} />} />
                         {/* Protected routes */}
                         <Route element={<ProtectedRoutes />}>
-                            <Route path={routes.default} element={<Dashboard />} />
+                            <Route path={routes.default} element={<Navigate to={routes.dashboard} />} />
+                            <Route path={routes.dashboard} element={<Dashboard />} />
                         </Route>
                     </Routes>
                 </AuthContextProvider>
