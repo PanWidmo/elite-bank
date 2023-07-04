@@ -1,18 +1,23 @@
-import styles from '@/components/SignInForm/SignInForm.module.scss';
+import styles from '@/components/LoginForm/LoginForm.module.scss';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { UserAuth } from '@/context/AuthContext.jsx';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { FormField } from '@/components/FormField/FormField.jsx';
+import { routes } from '@/services/routes.jsx';
+import PropTypes from 'prop-types';
+import { useAuth } from '@/hooks/useAuth.jsx';
 
 const schema = yup.object().shape({
     email: yup.string().required('Value is required.'),
     password: yup.string().required('Value is required.'),
 });
 
-export const SignInForm = () => {
-    const { signIn } = UserAuth();
+export const LoginForm = () => {
+    const { signIn } = useAuth();
     const navigate = useNavigate();
+    const [error, setError] = useState('');
 
     const {
         register,
@@ -30,21 +35,22 @@ export const SignInForm = () => {
     const onSubmit = async (data) => {
         try {
             await signIn(data.email, data.password);
-            navigate('/account');
+            navigate(routes.dashboard, { replace: true });
         } catch ({ message }) {
-            console.error(`ERROR: ${message}`);
+            setError(message);
         }
     };
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-            <label htmlFor="email">Email</label>
-            <input type="email" id="email" name="email" {...register('email')} />
-            {errors.email?.message && <span>{errors.email?.message}</span>}
-            <label htmlFor="password">Password</label>
-            <input type="password" id="password" name="password" {...register('password')} />
-            {errors.password?.message && <span>{errors.password?.message}</span>}
+            <FormField label="Email" id="email" name="email" type="email" register={register} error={errors.email?.message} />
+            <FormField label="Password" id="password" name="password" type="password" register={register} error={errors.password?.message} />
             <button type="submit">Sign In</button>
+            {error}
         </form>
     );
+};
+
+LoginForm.propTypes = {
+    children: PropTypes.any,
 };
