@@ -11,24 +11,22 @@ import { AppProviders } from '@/providers/AppProviders.jsx';
 
 export const App = () => {
     return (
-        <>
+        <AppProviders>
             <Header />
             <main>
-                <AppProviders>
-                    <Routes>
-                        {/* Public routes */}
-                        <Route path={routes.login} element={<Login />} />
-                        <Route path={routes.register} element={<Register />} />
-                        <Route path={routes.all} element={<Navigate to={routes.default} />} />
-                        {/* Protected routes */}
-                        <Route element={<ProtectedRoutes />}>
-                            <Route path={routes.default} element={<Navigate to={routes.dashboard} />} />
-                            <Route path={routes.dashboard} element={<Dashboard />} />
-                        </Route>
-                    </Routes>
-                </AppProviders>
+                <Routes>
+                    {/* Public routes */}
+                    <Route path={routes.login} element={<Login />} />
+                    <Route path={routes.register} element={<Register />} />
+                    <Route path={routes.all} element={<Navigate to={routes.default} />} />
+                    {/* Protected routes */}
+                    <Route element={<ProtectedRoutes />}>
+                        <Route path={routes.default} element={<Navigate to={routes.dashboard} />} />
+                        <Route path={routes.dashboard} element={<Dashboard />} />
+                    </Route>
+                </Routes>
             </main>
             <Footer />
-        </>
+        </AppProviders>
     );
 };
