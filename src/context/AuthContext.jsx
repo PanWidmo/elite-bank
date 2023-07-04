@@ -1,13 +1,12 @@
-import { useState, useRef, useEffect, createContext, useContext } from 'react';
-import { auth } from '@/firebase/firebase.jsx';
+import { useState, useEffect, createContext } from 'react';
+import { auth } from '@/services/firebase/firebase.jsx';
 import { signInWithEmailAndPassword, onAuthStateChanged, createUserWithEmailAndPassword, signOut } from 'firebase/auth';
+import PropTypes from 'prop-types';
 
-export const UserContext = createContext();
+export const AuthContext = createContext();
 
-// eslint-disable-next-line react/prop-types
 export const AuthContextProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState({});
-    const effectCalled = useRef(false);
 
     const signIn = (email, password) => signInWithEmailAndPassword(auth, email, password);
 
@@ -16,16 +15,13 @@ export const AuthContextProvider = ({ children }) => {
     const logout = () => signOut(auth);
 
     useEffect(() => {
-        if (!effectCalled.current) {
-            const unsubscribe = onAuthStateChanged(auth, (user) => {
-                setCurrentUser(user);
-            });
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            setCurrentUser(user);
+        });
 
-            return () => {
-                unsubscribe();
-                effectCalled.current = true;
-            };
-        }
+        return () => {
+            unsubscribe();
+        };
     }, [currentUser]);
 
     const value = {
@@ -35,7 +31,9 @@ export const AuthContextProvider = ({ children }) => {
         logout,
     };
 
-    return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
+    return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
-export const UserAuth = () => useContext(UserContext);
+AuthContextProvider.propTypes = {
+    children: PropTypes.any,
+};
