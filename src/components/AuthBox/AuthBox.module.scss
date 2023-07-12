@@ -1,0 +1,37 @@
+@import 'src/assets/styles/base';
+
+.authBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 0 0 4px 0 $black-color;
+    max-width: 400px;
+    padding: 4rem;
+    border-radius: 0.8rem;
+    margin: 3rem auto 0 auto;
+    overflow-y: hidden;
+
+    @include mobile-only {
+        padding: 1rem;
+        margin-top: 1rem;
+    }
+
+    &__title {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    &__infoWrapper {
+        margin-top: 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__description {
+        font-size: 1.4rem;
+        text-align: center;
+        margin-top: 2.5rem;
+    }
+}
