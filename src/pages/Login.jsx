@@ -1,13 +1,11 @@
 import { LoginForm } from '@/components/LoginForm/LoginForm.jsx';
-import { Link } from 'react-router-dom';
+import { AuthBox } from '@/components/AuthBox/AuthBox.jsx';
 import { routes } from '@/services/routes.jsx';
 
 export const Login = () => {
     return (
-        <>
-            <h2>Log in</h2>
+        <AuthBox title="Login" description="Need an account?" link={routes.register} linkText="Register Account">
             <LoginForm />
-            Need an account? <Link to={routes.register}> Register Account</Link>
-        </>
+        </AuthBox>
     );
 };
