@@ -4,6 +4,7 @@
     background-color: $dark-orange-color;
     position: sticky;
     top: 0;
+    z-index: 1;
 
     &__main {
         margin: 1rem 1.5rem;
@@ -13,5 +14,18 @@
         max-width: $content-container;
         margin-left: auto;
         margin-right: auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__logout {
+        font-size: 4rem;
+        cursor: pointer;
+        transition: translate 0.3s ease-in-out;
+
+        &:is(:hover, :focus, :active) {
+            translate: 1rem;
+        }
     }
 }
