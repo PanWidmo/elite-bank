@@ -1,4 +1,3 @@
-import styles from '@/components/LoginForm/LoginForm.module.scss';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -8,6 +7,7 @@ import { FormField } from '@/components/FormField/FormField.jsx';
 import { routes } from '@/services/routes.jsx';
 import PropTypes from 'prop-types';
 import { useAuth } from '@/hooks/useAuth.jsx';
+import { AuthForm } from '@/components/AuthForm/AuthForm.jsx';
 
 const schema = yup.object().shape({
     email: yup.string().required('Value is required.'),
@@ -42,12 +42,12 @@ export const LoginForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+        <AuthForm onSubmit={handleSubmit(onSubmit)}>
             <FormField label="Email" id="email" name="email" type="email" register={register} error={errors.email?.message} />
             <FormField label="Password" id="password" name="password" type="password" register={register} error={errors.password?.message} />
-            <button type="submit">Sign In</button>
+
             {error}
-        </form>
+        </AuthForm>
     );
 };
 

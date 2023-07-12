@@ -1,4 +1,3 @@
-import styles from '@/components/RegisterForm/RegisterForm.module.scss';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -8,6 +7,7 @@ import { FormField } from '@/components/FormField/FormField.jsx';
 import { useState } from 'react';
 import { useAuth } from '@/hooks/useAuth.jsx';
 import { useDatabase } from '@/hooks/useDatabase.jsx';
+import { AuthForm } from '@/components/AuthForm/AuthForm.jsx';
 
 const schema = yup.object().shape({
     name: yup.string().required('Value is required.'),
@@ -51,7 +51,7 @@ export const RegisterForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+        <AuthForm onSubmit={handleSubmit(onSubmit)}>
             <FormField label="Name" id="name" name="name" type="text" register={register} error={errors.name?.message} />
             <FormField label="Email" id="email" name="email" type="email" register={register} error={errors.email?.message} />
             <FormField label="Password" id="password" name="password" type="password" register={register} error={errors.password?.message} />
@@ -63,10 +63,9 @@ export const RegisterForm = () => {
                 register={register}
                 error={errors.password_confirm?.message}
             />
-            <FormField label="Age" id="age" name="age" type="number" register={register} error={errors.age?.message} />
+            <FormField label="Age" id="age" name="age" type="number" min="1" register={register} error={errors.age?.message} />
 
-            <button type="submit">Register</button>
             {error}
-        </form>
+        </AuthForm>
     );
 };
