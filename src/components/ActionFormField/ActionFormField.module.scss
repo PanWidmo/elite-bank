@@ -1,0 +1,33 @@
+@import '../../assets/styles/base';
+
+.actionFormField {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__label {
+        font-weight: 700;
+        font-size: 1.4rem;
+        margin-top: 1rem;
+    }
+
+    &__input {
+        border: 0;
+        text-align: center;
+        border-radius: 0.6rem;
+        padding: 0.6rem 1rem;
+        background-color: rgba(255, 255, 255, 0.6);
+        transition: background-color 0.4s ease-in-out;
+
+        &:is(:active, :hover, :focus) {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+    }
+
+    &__error {
+        color: $red-color;
+        align-self: flex-start;
+        font-size: 1.4rem;
+        font-weight: 700;
+    }
+}
