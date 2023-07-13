@@ -1,10 +1,8 @@
 @import '../../assets/styles/base';
 
-.formField {
-    &__wrapper {
-        display: flex;
-        flex-direction: column;
-    }
+.authFormField {
+    display: flex;
+    flex-direction: column;
 
     &__label {
         margin-bottom: 0.1rem;
@@ -34,5 +32,7 @@
 
     &__error {
         color: $red-color;
+        font-size: 1.4rem;
+        font-weight: 700;
     }
 }
