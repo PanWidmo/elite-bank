@@ -3,9 +3,8 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { FormField } from '@/components/FormField/FormField.jsx';
+import { AuthFormField } from '@/components/AuthFormField/AuthFormField.jsx';
 import { routes } from '@/services/routes.jsx';
-import PropTypes from 'prop-types';
 import { useAuth } from '@/hooks/useAuth.jsx';
 import { AuthForm } from '@/components/AuthForm/AuthForm.jsx';
 
@@ -43,14 +42,10 @@ export const LoginForm = () => {
 
     return (
         <AuthForm onSubmit={handleSubmit(onSubmit)}>
-            <FormField label="Email" id="email" name="email" type="email" register={register} error={errors.email?.message} />
-            <FormField label="Password" id="password" name="password" type="password" register={register} error={errors.password?.message} />
+            <AuthFormField label="Email" id="email" name="email" type="email" register={register} error={errors.email?.message} />
+            <AuthFormField label="Password" id="password" name="password" type="password" register={register} error={errors.password?.message} />
 
             {error}
         </AuthForm>
     );
-};
-
-LoginForm.propTypes = {
-    children: PropTypes.any,
 };

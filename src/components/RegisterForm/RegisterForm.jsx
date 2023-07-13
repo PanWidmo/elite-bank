@@ -3,7 +3,7 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
 import { routes } from '@/services/routes.jsx';
-import { FormField } from '@/components/FormField/FormField.jsx';
+import { AuthFormField } from '@/components/AuthFormField/AuthFormField.jsx';
 import { useState } from 'react';
 import { useAuth } from '@/hooks/useAuth.jsx';
 import { useDatabase } from '@/hooks/useDatabase.jsx';
@@ -52,10 +52,10 @@ export const RegisterForm = () => {
 
     return (
         <AuthForm onSubmit={handleSubmit(onSubmit)}>
-            <FormField label="Name" id="name" name="name" type="text" register={register} error={errors.name?.message} />
-            <FormField label="Email" id="email" name="email" type="email" register={register} error={errors.email?.message} />
-            <FormField label="Password" id="password" name="password" type="password" register={register} error={errors.password?.message} />
-            <FormField
+            <AuthFormField label="Name" id="name" name="name" type="text" register={register} error={errors.name?.message} />
+            <AuthFormField label="Email" id="email" name="email" type="email" register={register} error={errors.email?.message} />
+            <AuthFormField label="Password" id="password" name="password" type="password" register={register} error={errors.password?.message} />
+            <AuthFormField
                 label="Password Confirmation"
                 id="password_confirm"
                 name="password_confirm"
@@ -63,7 +63,7 @@ export const RegisterForm = () => {
                 register={register}
                 error={errors.password_confirm?.message}
             />
-            <FormField label="Age" id="age" name="age" type="number" min="1" register={register} error={errors.age?.message} />
+            <AuthFormField label="Age" id="age" name="age" type="number" min="1" register={register} error={errors.age?.message} />
 
             {error}
         </AuthForm>
