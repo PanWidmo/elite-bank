@@ -1,0 +1,10 @@
+.actionBox {
+    background-color: yellow;
+    border-radius: 0.8rem;
+    padding: 3rem 4rem;
+
+    &__title {
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+}
