@@ -1,0 +1,32 @@
+@import 'src/assets/styles/base';
+
+.movementItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 3rem;
+
+    &:not(:last-child) {
+        border-bottom: 1px solid $gray-color;
+    }
+
+    &__type {
+        padding: 0.5rem 1.5rem;
+        border-radius: 0.8rem;
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        color: $white-color;
+    }
+
+    &__deposit {
+        background-color: $green-color;
+    }
+
+    &__withdrawal {
+        background-color: $red-color;
+    }
+
+    &__value {
+        font-size: 2.2rem;
+    }
+}
