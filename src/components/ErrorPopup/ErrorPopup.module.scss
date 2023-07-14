@@ -1,0 +1,65 @@
+@import 'src/assets/styles/base';
+
+@keyframes shrinkAnimation {
+    from {
+        transform: translateX(-50%) scaleX(1);
+    }
+    to {
+        transform: translateX(-50%) scaleX(0);
+    }
+}
+
+@keyframes slideAnimation {
+    from {
+        transform: translateX(-50%) translateY(500%);
+    }
+    to {
+        transform: translateX(-50%) translateY(0);
+    }
+}
+.errorPopup {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 10%;
+    background-color: $white-color;
+    padding: 3.5rem 3.5rem 2.5rem;
+    border: 2px solid black;
+    border-radius: 1.5rem;
+    animation: slideAnimation 1s ease-in-out 1 forwards, slideAnimation 1s 6s ease-in-out 1 reverse forwards;
+
+    &::before,
+    &::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 1.5rem;
+        transform: translateX(-50%);
+        background-color: $black-color;
+        width: 14rem;
+        height: 5px;
+        border-radius: 5rem;
+    }
+
+    &::before {
+        opacity: 0.5;
+    }
+
+    &::after {
+        transform: translateX(-50%) scaleX(1);
+        transform-origin: left top;
+        animation: shrinkAnimation 5s 1s linear 1 forwards;
+    }
+
+    &__title {
+        font-size: 2.2rem;
+
+        @include mobile-only {
+            font-size: 1.8rem;
+        }
+    }
+
+    &__description {
+        color: $red-color;
+    }
+}
