@@ -1,8 +1,9 @@
 import { createContext, useEffect, useState } from 'react';
 import { database } from '@/services/firebase/firebase.jsx';
-import { ref, set, onValue } from 'firebase/database';
+import { ref, set, onValue, get, runTransaction } from 'firebase/database';
 import PropTypes from 'prop-types';
 import { useAuth } from '@/hooks/useAuth.jsx';
+import { ErrorPopup } from '@/components/ErrorPopup/ErrorPopup.jsx';
 
 export const DatabaseContext = createContext();
 
@@ -10,13 +11,68 @@ export const DatabaseContextProvider = ({ children }) => {
     const db = database;
     const [userData, setUserData] = useState({});
     const { currentUser } = useAuth();
+    const [error, setError] = useState('Something went wrong!');
 
     const addUserToDb = (userId, { name, email, age }) => {
-        set(ref(db, `users/${userId}`), {
-            name,
-            email,
-            age,
-        });
+        // Every new user receives extra 1000 euro by opening an account
+        const movements = [1000];
+
+        try {
+            set(ref(db, `users/${userId}`), {
+                id: userId,
+                name,
+                email,
+                age,
+                movements,
+            });
+        } catch ({ message }) {
+            setError(message);
+        }
+    };
+
+    const getUserByEmail = async (email) => {
+        try {
+            const usersRef = ref(db, 'users');
+            const snapshot = await get(usersRef);
+            const usersData = snapshot.val();
+            const user = Object.values(usersData).find((obj) => obj.email === email);
+
+            if (!user) {
+                throw new Error("User doesn't exist");
+            }
+
+            return user;
+        } catch ({ message }) {
+            setError(message);
+        }
+    };
+
+    const addMovementToUser = async (userId, newMovement) => {
+        try {
+            const userMovementsRef = ref(db, `users/${userId}/movements`);
+
+            const transactionResult = await runTransaction(userMovementsRef, (currentMovements) => {
+                if (!currentMovements) {
+                    return [newMovement];
+                } else {
+                    return [...currentMovements, newMovement];
+                }
+            });
+
+            return transactionResult.snapshot.val();
+        } catch ({ message }) {
+            setError(message);
+        }
+    };
+
+    const transferMoney = async (email, amount) => {
+        try {
+            const user = await getUserByEmail(email);
+
+            await Promise.all([addMovementToUser(user.id, amount), addMovementToUser(currentUser.uid, -amount)]);
+        } catch ({ message }) {
+            setError(message);
+        }
     };
 
     useEffect(() => {
@@ -33,9 +89,15 @@ export const DatabaseContextProvider = ({ children }) => {
     const values = {
         addUserToDb,
         userData,
+        transferMoney,
     };
 
-    return <DatabaseContext.Provider value={values}>{children}</DatabaseContext.Provider>;
+    return (
+        <DatabaseContext.Provider value={values}>
+            {children}
+            {error && <ErrorPopup msg={error} />}
+        </DatabaseContext.Provider>
+    );
 };
 
 DatabaseContextProvider.propTypes = {
