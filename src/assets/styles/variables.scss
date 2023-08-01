@@ -7,8 +7,16 @@ $content-container: 1200px;
 $white-color: #fff;
 $black-color: #000;
 $navy-color: #025464;
+$light-navy-color: #c0cedb;
 $dark-orange-color: #e57c23;
 $light-orange-color: #e8aa42;
+$orange-color: #f79802;
 $red-color: #ed4337;
 $gray-color: #787878;
 $green-color: #32cd32;
+$yellow-color: #ffbf00;
+
+// Gradients
+$yellow-red-gradient: linear-gradient(to top left, $yellow-color, $red-color);
+$green-dark-orange-gradient: linear-gradient(to top left, $green-color, $dark-orange-color);
+$red-orange-gradient: linear-gradient(to top left, $red-color, $orange-color);
