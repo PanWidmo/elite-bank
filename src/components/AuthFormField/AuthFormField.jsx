@@ -4,8 +4,9 @@ import { HiOutlineMail } from 'react-icons/hi';
 import { AiOutlineUser } from 'react-icons/ai';
 import { HiOutlineLockClosed } from 'react-icons/hi';
 import { AiTwotoneCalendar } from 'react-icons/ai';
+import { BsKey } from 'react-icons/bs';
 
-export const AuthFormField = ({ label, id, name, type = 'text', register, error, ...rest }) => {
+export const AuthFormField = ({ label, id, name, type, register, error }) => {
     return (
         <div className={styles.authFormField}>
             <label className={styles.authFormField__label} htmlFor={id}>
@@ -15,18 +16,10 @@ export const AuthFormField = ({ label, id, name, type = 'text', register, error,
                 {type === 'email' && <HiOutlineMail className={styles.authFormField__icon} />}
                 {type === 'password' && <HiOutlineLockClosed className={styles.authFormField__icon} />}
                 {type === 'text' && <AiOutlineUser className={styles.authFormField__icon} />}
-                {type === 'text' && <AiOutlineUser className={styles.authFormField__icon} />}
-                {type === 'number' && <AiTwotoneCalendar className={styles.authFormField__icon} />}
+                {name === 'age' && <AiTwotoneCalendar className={styles.authFormField__icon} />}
+                {name === 'pin' && <BsKey className={styles.authFormField__icon} />}
 
-                <input
-                    className={styles.authFormField__input}
-                    placeholder={`Enter ${label}`}
-                    type={type}
-                    name={name}
-                    id={id}
-                    {...register(name)}
-                    {...rest}
-                />
+                <input className={styles.authFormField__input} placeholder={`Enter ${label}`} type={type} name={name} id={id} {...register(name)} />
             </div>
 
             {error && <span className={styles.authFormField__error}>*{error}</span>}
