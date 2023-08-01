@@ -3,12 +3,12 @@
 .actionFormField {
     display: flex;
     flex-direction: column;
-    align-items: center;
 
     &__label {
         font-weight: 700;
         font-size: 1.4rem;
         margin-top: 1rem;
+        align-self: center;
     }
 
     &__input {
