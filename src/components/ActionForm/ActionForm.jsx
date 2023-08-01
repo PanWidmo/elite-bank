@@ -1,13 +1,13 @@
 import styles from '@/components/ActionForm/ActionForm.module.scss';
 import PropTypes from 'prop-types';
-import { AiOutlineSend } from 'react-icons/ai';
+import { FiChevronsRight } from 'react-icons/fi';
 
 export const ActionForm = ({ children, ...rest }) => {
     return (
         <form className={styles.actionForm} {...rest}>
             {children}
             <button className={styles.actionForm__button}>
-                <AiOutlineSend />
+                <FiChevronsRight />
             </button>
         </form>
     );
