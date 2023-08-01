@@ -1,14 +1,26 @@
+@import '../../assets/styles/base';
+
 .actionForm {
     display: flex;
-    flex-wrap: wrap;
     gap: 1.5rem;
 
+    @include not-desktop {
+        justify-content: center;
+    }
+
+    @include mobile-only {
+        flex-direction: column;
+    }
+
     &__button {
-        align-self: flex-start;
         border: none;
         background: none;
         font-size: 2.5rem;
         transition: translate 0.4s ease-in-out;
+
+        @include not-mobile {
+            align-self: flex-start;
+        }
 
         &:is(:hover, :active, :focus) {
             translate: 1rem;
