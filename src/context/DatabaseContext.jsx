@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from 'react';
 import { database } from '@/services/firebase/firebase.jsx';
-import { ref, set, onValue, get, runTransaction } from 'firebase/database';
+import { ref, set, onValue, get, runTransaction, remove } from 'firebase/database';
 import PropTypes from 'prop-types';
 import { useAuth } from '@/hooks/useAuth.jsx';
 import { ErrorPopup } from '@/components/ErrorPopup/ErrorPopup.jsx';
@@ -11,9 +11,9 @@ export const DatabaseContextProvider = ({ children }) => {
     const db = database;
     const [userData, setUserData] = useState({});
     const { currentUser } = useAuth();
-    const [error, setError] = useState('Something went wrong!');
+    const [error, setError] = useState('');
 
-    const addUserToDb = (userId, { name, email, age }) => {
+    const addUserToDb = (userId, { name, email, age, pin }) => {
         // Every new user receives extra 1000 euro by opening an account
         const movements = [1000];
 
@@ -23,12 +23,15 @@ export const DatabaseContextProvider = ({ children }) => {
                 name,
                 email,
                 age,
+                pin,
                 movements,
             });
         } catch ({ message }) {
             setError(message);
         }
     };
+
+    const userBalance = userData?.movements?.reduce((acc, curr) => acc + curr) || 0;
 
     const getUserByEmail = async (email) => {
         try {
@@ -75,6 +78,25 @@ export const DatabaseContextProvider = ({ children }) => {
         }
     };
 
+    const requestLoan = async (amount) => {
+        try {
+            await addMovementToUser(currentUser.uid, amount);
+        } catch ({ message }) {
+            setError(message);
+        }
+    };
+
+    const wipeAccount = async (email) => {
+        try {
+            const user = await getUserByEmail(email);
+            const userMovementsRef = ref(db, `users/${user.id}/movements`);
+
+            await remove(userMovementsRef);
+        } catch ({ message }) {
+            setError(message);
+        }
+    };
+
     useEffect(() => {
         if (!currentUser?.uid) return;
 
@@ -89,7 +111,10 @@ export const DatabaseContextProvider = ({ children }) => {
     const values = {
         addUserToDb,
         userData,
+        userBalance,
         transferMoney,
+        requestLoan,
+        wipeAccount,
     };
 
     return (
