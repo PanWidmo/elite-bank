@@ -1,7 +1,24 @@
+@import 'src/assets/styles/base';
+
 .actionBox {
-    background-color: yellow;
     border-radius: 0.8rem;
     padding: 3rem 4rem;
+    box-shadow: 0 0 12px 0 $black-color;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    &__transfer {
+        background-image: $yellow-red-gradient;
+    }
+
+    &__request {
+        background-image: $green-dark-orange-gradient;
+    }
+
+    &__close {
+        background-image: $red-orange-gradient;
+    }
 
     &__title {
         font-weight: 700;
