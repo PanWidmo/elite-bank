@@ -15,6 +15,7 @@ const schema = yup.object().shape({
     password: yup.string().required('Value is required.').min(6, 'Password should be at least 6 characters'),
     password_confirm: yup.string().oneOf([yup.ref('password')], 'Passwords must match'),
     age: yup.number().min(18, 'You must be an adult to create bank account'),
+    pin: yup.number().test('len', 'Must be exactly 4 characters', (val) => val.toString().length === 4),
 });
 
 export const RegisterForm = () => {
@@ -35,6 +36,7 @@ export const RegisterForm = () => {
             password: '',
             password_confirm: '',
             age: '',
+            pin: '',
         },
     });
 
@@ -63,7 +65,8 @@ export const RegisterForm = () => {
                 register={register}
                 error={errors.password_confirm?.message}
             />
-            <AuthFormField label="Age" id="age" name="age" type="number" min="1" register={register} error={errors.age?.message} />
+            <AuthFormField label="Age" id="age" name="age" type="number" register={register} error={errors.age?.message} />
+            <AuthFormField label="PIN" id="pin" name="pin" type="number" register={register} error={errors.pin?.message} />
 
             {error}
         </AuthForm>
