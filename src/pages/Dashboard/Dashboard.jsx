@@ -3,13 +3,13 @@ import styles from '@/pages/Dashboard/Dashboard.module.scss';
 import { MdOutlineWavingHand } from 'react-icons/md';
 import { TransferMoney } from '@/components/TransferMoney/TransferMoney.jsx';
 import { MovementsList } from '@/components/MovementsList/MovementsList.jsx';
+import { RequestLoan } from '@/components/RequestLoan/RequestLoan.jsx';
+import { WipeAccount } from '@/components/WipeAccount/WipeAccount.jsx';
 
 export const Dashboard = () => {
-    const { userData } = useDatabase();
+    const { userData, userBalance } = useDatabase();
 
     const userFirstName = userData?.name?.split(' ').at(0);
-
-    const currentBalance = userData?.movements?.reduce((acc, curr) => acc + curr);
 
     const now = new Date();
     const options = {
@@ -32,15 +32,15 @@ export const Dashboard = () => {
                     <p className={styles.dashboard__balanceLabel}>Current balance</p>
                     <p className={styles.dashboard__balanceDate}>As of {dateString}</p>
                 </div>
-                <p className={styles.dashboard__balanceValue}>{currentBalance} €</p>
+                <p className={styles.dashboard__balanceValue}>{userBalance} €</p>
             </div>
             <div className={styles.dashboard__wrapper}>
                 <div className={styles.dashboard__movementsBox}>
                     <MovementsList />
                 </div>
-                <div className={styles.dashboard__actionsBox}>
-                    <TransferMoney />
-                </div>
+                <TransferMoney />
+                <RequestLoan />
+                <WipeAccount />
             </div>
         </section>
     );
