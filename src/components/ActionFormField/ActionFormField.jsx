@@ -1,18 +1,10 @@
 import styles from '@/components/ActionFormField/ActionFormField.module.scss';
 import PropTypes from 'prop-types';
 
-export const ActionFormField = ({ label, id, name, type, register, placeholder = 'Enter value', error, ...rest }) => {
+export const ActionFormField = ({ label, id, name, type, register, placeholder = 'Enter value', error }) => {
     return (
         <div className={styles.actionFormField}>
-            <input
-                className={styles.actionFormField__input}
-                placeholder={placeholder}
-                type={type}
-                name={name}
-                id={id}
-                {...register(name)}
-                {...rest}
-            />
+            <input className={styles.actionFormField__input} placeholder={placeholder} type={type} name={name} id={id} {...register(name)} />
             {error && <span className={styles.actionFormField__error}>*{error}</span>}
 
             <label className={styles.actionFormField__label} htmlFor={id}>
