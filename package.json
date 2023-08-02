@@ -37,12 +37,15 @@
         "eslint-plugin-react": "^7.32.2",
         "eslint-plugin-react-hooks": "^4.6.0",
         "eslint-plugin-react-refresh": "^0.3.4",
+        "husky": "^8.0.3",
+        "lint-staged": "^13.2.3",
         "prettier": "^2.8.8",
         "vite": "^4.3.9",
         "vite-plugin-eslint": "^1.8.1"
     },
     "lint-staged": {
         "src/**/*.{js,jsx,ts,tsx,html,json}": "eslint --cache --fix",
-        "src/**/*.{js,jsx,ts,tsx,html,json,css,scss,md}": "prettier --write"
+        "src/**/*.{js,jsx,ts,tsx,html,json,css,scss,md}": "prettier --write",
+        "*.{js,jsx}": "eslint --cache --fix"
     }
 }
