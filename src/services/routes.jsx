@@ -1,7 +1,7 @@
 export const routes = {
-    default: '/',
-    all: '/*',
-    register: '/register',
-    login: '/login',
-    dashboard: '/dashboard',
+    default: '/elite-bank',
+    all: '/elite-bank/*',
+    register: '/elite-bank/register',
+    login: '/elite-bank/login',
+    dashboard: '/elite-bank/dashboard',
 };
