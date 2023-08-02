@@ -1,23 +1,7 @@
-# Getting Started
-
-After installing Vite app add these files to your project.
-
-## Installation
-
-1. Clone the repo
-
-```
-git clone https://github.com/PanWidmo/boilerplate-vite.git
-```
-
-2. Install NPM packages
-
-```
-npm install
-```
-
-3. Run the dev server
-
-```
-npm run dev
-```
+<h1 align='center'>Elite Bank</h1>
+</br>
+<p align='center'> ✨https://tomaszbaranww.github.io/elite-bank ✨</p>
+</br>
+<p align='center'> For more information about this project please checky my website: https://tomaszbaranww.github.io/ 
+</p>
+</br>
